@@ -1,0 +1,14 @@
+.content{
+    margin-top: 64px;
+}
+.footer{
+
+    text-align: center;
+}
+.footer .footer-title{
+  display: block;
+  font-size: 16px;
+}
+.footer .footer-auth{
+ color: #888888;
+}

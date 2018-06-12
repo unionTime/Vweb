@@ -1,0 +1,15 @@
+.module-container{
+    width: 80%;
+    max-width: 1100px;
+    margin:20px auto;
+}
+.module-container-header{
+   color: #595959;
+   margin-bottom: 10px;
+}
+.module-container-header-left{
+
+}
+.module-container-header-right{
+
+}
