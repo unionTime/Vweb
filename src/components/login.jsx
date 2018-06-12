@@ -5,12 +5,14 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import 'styles/login.css';
 const FormItem = Form.Item;
-
+import { withRouter } from 'react-router-dom';
 class LoginContainer extends React.Component {
     constructor(props){
         super(props)
     }
     handleSubmit = (e) => {
+        this.props.history.push('manage')
+        console.log(this.props.history)
         e.preventDefault();
         const _this = this;
         this.props.form.validateFields((err, values) => {
@@ -65,4 +67,4 @@ class LoginContainer extends React.Component {
         )
     }
 }
-export default Form.create()(LoginContainer)
+export default Form.create()(withRouter(LoginContainer))
