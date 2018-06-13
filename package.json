@@ -64,6 +64,7 @@
   "dependencies": {
     "antd": "^3.6.1",
     "core-js": "^2.0.0",
+    "immutable": "^3.8.2",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
