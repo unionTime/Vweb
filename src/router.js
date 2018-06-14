@@ -8,7 +8,7 @@ const RouterConfig = (
         <Route render={({ location }) => {
             return (
                 <Switch key={location.pathname}>
-                    <Route location={location} exact path="/" component={LoginContainer} />
+                    <Route location={location} exact path="/" component={Manage} />
                     <Route location={location} path="/manage" component={Manage} />
                     <Route location={location} path="/system" component={System} />
                 </Switch>

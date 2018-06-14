@@ -1,6 +1,28 @@
 import React from 'react'
 import Container from './module-container'
-import { Icon, Table, Popconfirm, message } from 'antd';
+import { Icon, Table, Popconfirm, message, Row, Col} from 'antd';
+
+const expandedRowRender = (record) => {
+    return (
+        <Row>
+            <Col>
+                <p>采集范围：{record.plant_area}</p>
+                <p>土壤：{record.plant_soil}</p>
+                <p>湿度：{record.plant_humidity}</p>
+            </Col>
+            <Col>
+                <p>朝向：{record.plant_orientation}</p>
+                <p>气候：{record.plant_climate}</p>
+                <p>林奈人为系统：{record.plant_linna}</p>
+            </Col>
+            <Col>
+                <p>经度：{record.plant_longitude}</p>
+                <p>纬度：{record.plant_latitude}</p>
+                <p>恩格勒自然系统：{record.plant_engler}</p>
+            </Col>
+        </Row>
+    )
+}
 class PlantsList extends React.Component {
     constructor(props) {
         super(props)
@@ -11,9 +33,9 @@ class PlantsList extends React.Component {
                 plant_id: '000001',
                 plant_sname: '凹叶木兰',
                 plant_alias: '姜朴、应春花、厚皮（四川）',
-                familia: '木兰科',
-                genus: '木兰属',
-                carea: '黑竹沟马里冷旧、蜂巢岩',
+                plant_family: '木兰科',
+                plant_genus: '木兰属',
+                plant_distribution_area: '黑竹沟马里冷旧、蜂巢岩',
                 darea: '生于海拔1 400-3 000米的潮湿的阔叶林中'
             },
             {
@@ -21,9 +43,9 @@ class PlantsList extends React.Component {
                 plant_id: '000001',
                 plant_sname: '凹叶木兰',
                 plant_alias: '姜朴、应春花、厚皮（四川）',
-                familia: '木兰科',
-                genus: '木兰属',
-                carea: '黑竹沟马里冷旧、蜂巢岩',
+                plant_family: '木兰科',
+                plant_genus: '木兰属',
+                plant_distribution_area: '黑竹沟马里冷旧、蜂巢岩',
                 darea: '生于海拔1 400-3 000米的潮湿的阔叶林中'
             },
             {
@@ -31,9 +53,9 @@ class PlantsList extends React.Component {
                 plant_id: '000001',
                 plant_sname: '凹叶木兰',
                 plant_alias: '姜朴、应春花、厚皮（四川）',
-                familia: '木兰科',
-                genus: '木兰属',
-                carea: '黑竹沟马里冷旧、蜂巢岩',
+                plant_family: '木兰科',
+                plant_genus: '木兰属',
+                plant_distribution_area: '黑竹沟马里冷旧、蜂巢岩',
                 darea: '生于海拔1 400-3 000米的潮湿的阔叶林中'
             },
             {
@@ -41,9 +63,9 @@ class PlantsList extends React.Component {
                 plant_id: '000001',
                 plant_sname: '凹叶木兰',
                 plant_alias: '姜朴、应春花、厚皮（四川）',
-                familia: '木兰科',
-                genus: '木兰属',
-                carea: '黑竹沟马里冷旧、蜂巢岩',
+                plant_family: '木兰科',
+                plant_genus: '木兰属',
+                plant_distribution_area: '黑竹沟马里冷旧、蜂巢岩',
                 darea: '生于海拔1 400-3 000米的潮湿的阔叶林中'
             }
             ]
@@ -54,6 +76,27 @@ class PlantsList extends React.Component {
     }
     cancel = () => {
         message.error('取消');
+    }
+    expandedRowRender = (record) => {
+        return (
+            <Row>
+                <Col span={8}>
+                    <p>采集范围：{record.plant_area}</p>
+                    <p>土壤：{record.plant_soil}</p>
+                    <p>湿度：{record.plant_humidity}</p>
+                </Col>
+                <Col span={8}>
+                    <p>朝向：{record.plant_orientation}</p>
+                    <p>气候：{record.plant_climate}</p>
+                    <p>林奈人为系统：{record.plant_linna}</p>
+                </Col>
+                <Col span={8}>
+                    <p>经度：{record.plant_longitude}</p>
+                    <p>纬度：{record.plant_latitude}</p>
+                    <p>恩格勒自然系统：{record.plant_engler}</p>
+                </Col>
+            </Row>
+        )
     }
     render() {
         const columns = [
@@ -77,48 +120,42 @@ class PlantsList extends React.Component {
             },
             {
                 title: '科',
-                dataIndex: 'familia',
-                key: 'familia',
+                dataIndex: 'plant_family',
+                key: 'plant_family',
                 width: '5%'
             },
             {
                 title: '属',
-                dataIndex: 'genus',
-                key: 'genus',
+                dataIndex: 'plant_genus',
+                key: 'plant_genus',
                 width: '5%'
             },
             {
-                title: '区域',
-                dataIndex: 'carea',
-                key: 'laber_id',
+                title: '分布区域',
+                dataIndex: 'plant_distribution_area',
+                key: 'plant_distribution_area',
                 width: '10%'
             },
             {
-                title: '介绍',
-                dataIndex: 'darea',
-                key: 'darea',
-                width: '30%'
+                title: '药性特征',
+                dataIndex: 'plant_drug_feature',
+                key: 'plant_drug_feature',
+                width: '20%'
             },
             {
-                title: '地理信息编号',
-                dataIndex: 'geo_id',
-                key: 'geo_id',
-                width: '10%'
-            },
-            {
-                title: '详情',
-                dataIndex: 'detail',
-                key: 'detail',
-                width: '5%',
+                title: '图片',
+                dataIndex: 'imgs',
+                key: 'imgs',
+                width: '10%',
                 render: () => {
-                    return (<a href="#">详情</a>)
+                    return (<a href="#">图片</a>)
                 }
             },
             {
                 title: '删除',
                 dataIndex: 'delete',
                 key: 'delete',
-                width: '5%',
+                width: '10%',
                 render: (text, record) => {
                     return (<Popconfirm title="你确定要删除该用户吗？" onConfirm={() => this.confirm(record)} onCancel={this.cancel} okText="是" cancelText="否">
                         <a href="#">删除</a>
@@ -129,7 +166,7 @@ class PlantsList extends React.Component {
         return (<Container
             headerLeft={<span><Icon type="appstore-o" /> 植物列表</span>}
             headerRight={null} >
-            <Table loading={this.state.loading} style={{ backgroundColor: '#fff' }} dataSource={this.state.data} columns={columns}
+            <Table loading={this.state.loading} style={{ backgroundColor: '#fff' }} dataSource={this.state.data} expandedRowRender={record => this.expandedRowRender(record)} columns={columns}
                 pagination={10}
             />
         </Container>)
