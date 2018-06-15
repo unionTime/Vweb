@@ -1,0 +1,30 @@
+.images-active{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 8;
+}
+.model{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  background-color: black;
+  opacity: 0.5;
+}
+.image-container{
+  widows: 100%;
+  height: 100%;
+}
+.image {
+  height: 75%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 19;
+}

@@ -49,7 +49,7 @@ class PlantsCreate extends React.Component{
     }
     inputItemRender = (arr) => {
         const { getFieldDecorator } = this.props.form;
-        return arr.map(item => (<FormItem label={item.label}
+        return arr.map((item,index) => (<FormItem key={index} label={item.label}
             {...formItemLayout} >
             {getFieldDecorator(item.name, {
                 rules: [
@@ -61,7 +61,6 @@ class PlantsCreate extends React.Component{
         </FormItem>))
     }
     render(){
-        const { getFieldDecorator } = this.props.form;
         return (<Container
             headerLeft={<span><Icon type="plus" /> 新增植物</span>}
                headerRight={null} >
@@ -81,33 +80,12 @@ class PlantsCreate extends React.Component{
               </Row>
                 <FormItem
                     {...formItemLayout1}
-                    label={<span><Icon type="file-add" /> 上传文件</span>}
+                    label='上传图片'
                 >
                   <PicturesWall />
                 </FormItem>
-              <div className='upload-file'>
-                    <FormItem
-                        {...formItemLayout1}
-                        label={<span><Icon type="file-add" /> 上传文件</span>}
-                    >
-                        <div className="dropbox">
-                            {getFieldDecorator('dragger', {
-                                valuePropName: 'fileList',
-                                getValueFromEvent: this.normFile
-                            })(
-                                <Upload.Dragger name="files" action="/upload.do">
-                                    <p className="ant-upload-drag-icon">
-                                        <Icon type="inbox" />
-                                    </p>
-                                    <p className="ant-upload-text">点击选择文件或拖拽文件到此</p>
-                                    <p className="ant-upload-hint">支持execl文件</p>
-                                </Upload.Dragger>
-                            )}
-                        </div>
-                    </FormItem>
-              </div>
                 <FormItem {...formItemLayout1} label=' ' >
-                    <Button type="primary" htmlType="submit"><Icon type="plus" />提交 | 上传</Button>
+                    <Button type="primary" htmlType="submit"><Icon type="plus" /> 提交 | 更新 </Button>
                 </FormItem>
         </Form>
         </Container>)

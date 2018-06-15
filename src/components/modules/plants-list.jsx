@@ -2,27 +2,7 @@ import React from 'react'
 import Container from './module-container'
 import { Icon, Table, Popconfirm, message, Row, Col} from 'antd';
 
-const expandedRowRender = (record) => {
-    return (
-        <Row>
-            <Col>
-                <p>采集范围：{record.plant_area}</p>
-                <p>土壤：{record.plant_soil}</p>
-                <p>湿度：{record.plant_humidity}</p>
-            </Col>
-            <Col>
-                <p>朝向：{record.plant_orientation}</p>
-                <p>气候：{record.plant_climate}</p>
-                <p>林奈人为系统：{record.plant_linna}</p>
-            </Col>
-            <Col>
-                <p>经度：{record.plant_longitude}</p>
-                <p>纬度：{record.plant_latitude}</p>
-                <p>恩格勒自然系统：{record.plant_engler}</p>
-            </Col>
-        </Row>
-    )
-}
+
 class PlantsList extends React.Component {
     constructor(props) {
         super(props)
@@ -134,7 +114,7 @@ class PlantsList extends React.Component {
                 title: '分布区域',
                 dataIndex: 'plant_distribution_area',
                 key: 'plant_distribution_area',
-                width: '10%'
+                width: '15%'
             },
             {
                 title: '药性特征',
@@ -146,16 +126,25 @@ class PlantsList extends React.Component {
                 title: '图片',
                 dataIndex: 'imgs',
                 key: 'imgs',
-                width: '10%',
+                width: '5%',
                 render: () => {
                     return (<a href="#">图片</a>)
+                }
+            },
+            {
+                title: '操作',
+                dataIndex: 'update',
+                key: 'update',
+                width: '5%',
+                render: () => {
+                    return (<a href="#">修改</a>)
                 }
             },
             {
                 title: '删除',
                 dataIndex: 'delete',
                 key: 'delete',
-                width: '10%',
+                width: '5%',
                 render: (text, record) => {
                     return (<Popconfirm title="你确定要删除该用户吗？" onConfirm={() => this.confirm(record)} onCancel={this.cancel} okText="是" cancelText="否">
                         <a href="#">删除</a>

@@ -74,18 +74,6 @@ class AdminManage extends React.Component{
               <Form >
                   <Row>
                       <Col span={6}>
-                          <FormItem label="编码"
-                              {...formItemLayout} >
-                              {getFieldDecorator('usr_id', {
-                                  rules: [
-                                      { required: this.state.update, message: '请输入管理员编号' }
-                                  ]
-                              })(
-                                  <Input disabled={this.state.update} placeholder="请输入管理员编号" />
-                              )}
-                          </FormItem>
-                      </Col>
-                      <Col span={6}>
                           <FormItem label="账号"
                               {...formItemLayout} >
                               {getFieldDecorator('usr_name', {
@@ -101,6 +89,18 @@ class AdminManage extends React.Component{
                           <FormItem label="密码"
                               {...formItemLayout} >
                               {getFieldDecorator('pwd', {
+                                  rules: [
+                                      { required: this.state.update, message: '请输入密码' }
+                                  ]
+                              })(
+                                  <Input disabled={this.state.update} placeholder="请输入密码" />
+                              )}
+                          </FormItem>
+                      </Col>
+                      <Col span={6}>
+                          <FormItem label="再次密码"
+                              {...formItemLayout} >
+                              {getFieldDecorator('_pwd', {
                                   rules: [
                                       { required: this.state.update, message: '请输入密码' }
                                   ]
