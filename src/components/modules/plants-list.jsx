@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from './module-container'
+import ImagesPreview from './image-preview'
 import { Icon, Table, Popconfirm, message, Row, Col} from 'antd';
 
 
@@ -8,6 +9,8 @@ class PlantsList extends React.Component {
         super(props)
         this.state = {
             loading: false,
+            previewImages: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
+            previewImagesActive:false,
             data: [{
                 key: '1',
                 plant_id: '000001',
@@ -50,6 +53,11 @@ class PlantsList extends React.Component {
             }
             ]
         }
+    }
+    preview = () => {
+      this.setState({
+          previewImagesActive:true
+      })
     }
     /* 删除 */
     confirm = () => {
@@ -127,8 +135,8 @@ class PlantsList extends React.Component {
                 dataIndex: 'imgs',
                 key: 'imgs',
                 width: '5%',
-                render: () => {
-                    return (<a href="#">图片</a>)
+                render: (imgs) => {
+                    return (<a  onClick={() => this.preview(imgs)} >图片</a>)
                 }
             },
             {
@@ -137,7 +145,7 @@ class PlantsList extends React.Component {
                 key: 'update',
                 width: '5%',
                 render: () => {
-                    return (<a href="#">修改</a>)
+                    return (<a href="#">更新</a>)
                 }
             },
             {
@@ -158,6 +166,7 @@ class PlantsList extends React.Component {
             <Table loading={this.state.loading} style={{ backgroundColor: '#fff' }} dataSource={this.state.data} expandedRowRender={record => this.expandedRowRender(record)} columns={columns}
                 pagination={10}
             />
+            <ImagesPreview images={this.state.previewImages} active={this.state.previewImagesActive} />
         </Container>)
     }
 }

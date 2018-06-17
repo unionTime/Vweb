@@ -38,7 +38,8 @@ class PlantsCreate extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            update:false
+            update:false,
+            type:'create'
         }
     }
     normFile = (e) => {
@@ -46,6 +47,12 @@ class PlantsCreate extends React.Component{
             return e;
         }
         return e && e.fileList;
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err,values) => {
+            console.log(values)
+        })
     }
     inputItemRender = (arr) => {
         const { getFieldDecorator } = this.props.form;
@@ -60,12 +67,20 @@ class PlantsCreate extends React.Component{
             )}
         </FormItem>))
     }
+    upload = (e) => {
+        console.log(e)
+    }
+    onChange = (file, fileList) => {
+        console.log(fileList)
+        return false
+    }
     render(){
         return (<Container
-            headerLeft={<span><Icon type="plus" /> 新增植物</span>}
+            headerLeft={<span><Icon type="plus" /> {this.state.type == 'create'? '新增植物':'更新植物'}</span>}
                headerRight={null} >
         <Form className="fromcss"
                 layout="horizontal"
+                onSubmit={this.handleSubmit}
                 >
               <Row>
                 <Col span={8}>
@@ -85,7 +100,7 @@ class PlantsCreate extends React.Component{
                   <PicturesWall />
                 </FormItem>
                 <FormItem {...formItemLayout1} label=' ' >
-                    <Button type="primary" htmlType="submit"><Icon type="plus" /> 提交 | 更新 </Button>
+                    <Button type="primary" htmlType="submit"><Icon type="plus" />{this.state.type == 'create' ? ' 提交 ' : '更新'}</Button>
                 </FormItem>
         </Form>
         </Container>)

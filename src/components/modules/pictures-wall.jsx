@@ -21,7 +21,9 @@ class PicturesWall extends React.Component {
         });
     }
 
-    handleChange = ({ fileList }) => this.setState({ fileList })
+    handleChange = ({fileList}) => {
+        console.log(fileList)
+        this.setState({ fileList })}
 
     render() {
         const { previewVisible, previewImage, fileList } = this.state;
@@ -39,6 +41,7 @@ class PicturesWall extends React.Component {
                     fileList={fileList}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}
+                    beforeUpload={() => false}
                 >
                     {fileList.length >= 3 ? null : uploadButton}
                 </Upload>
