@@ -5,7 +5,7 @@ class Verification {
        if (response.status == 200){
            if (response.ok){
                message.success('成功', 1.5)
-               return  response.json().then(res => success(res))
+               return response.json().then(res => success(Object.assign({}, res, { status: response.status})))
            }else{
                message.error('失败', 2)
                return error('error')

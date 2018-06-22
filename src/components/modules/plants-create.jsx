@@ -1,6 +1,9 @@
 import React from 'react'
 import Container from './module-container'
 import PicturesWall from './pictures-wall'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../actions/plants'
 import { Icon, Form, Row, Col, Input, Upload, Button} from 'antd';
 require('../../styles/plants-create.css')
 const FormItem = Form.Item;
@@ -39,7 +42,8 @@ class PlantsCreate extends React.Component{
         super(props)
         this.state={
             update:false,
-            type:'create'
+            type:'create',
+            imgs:[]
         }
     }
     normFile = (e) => {
@@ -50,8 +54,27 @@ class PlantsCreate extends React.Component{
     }
     handleSubmit = (e) => {
         e.preventDefault();
+        let _this =this
         this.props.form.validateFields((err,values) => {
-            console.log(values)
+            _this.props.actions.plant_create('',{
+                plant_sname: values.plant_sname,
+                plant_alias: values.plant_alias,
+                plant_lname: values.plant_lname,
+                plant_family: values.plant_family,
+                plant_genus: values.plant_genus,
+                plant_area: values.plant_area,
+                plant_soil: values.plant_soil,
+                plant_humidity: values.plant_humidity,
+                plant_orientation: values.plant_orientation,
+                plant_climate: values.plant_climate,
+                plant_longitude: values.plant_longitude,
+                plant_latitude: values.plant_latitude,
+                plant_distribution_area: values.plant_distribution_area,
+                plant_drug_feature: values.plant_drug_feature,
+                plant_engler: values.plant_engler,
+                plant_linna: values.plant_linna,
+                imgs:_this.state.imgs
+            })
         })
     }
     inputItemRender = (arr) => {
@@ -106,4 +129,11 @@ class PlantsCreate extends React.Component{
         </Container>)
     }
 }
-export default Form.create({})(PlantsCreate)
+const mapStateToProps = state => {
+    let { login } = state;
+    return { login }
+}
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(PlantsCreate));

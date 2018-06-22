@@ -5,25 +5,30 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import 'styles/login.css';
 const FormItem = Form.Item;
+import * as actions from '../actions/admin'
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 class LoginContainer extends React.Component {
     constructor(props){
         super(props)
     }
     handleSubmit = (e) => {
-        this.props.history.push('manage')
-        console.log(this.props.history)
         e.preventDefault();
         const _this = this;
         this.props.form.validateFields((err, values) => {
-            // if (!err) {
-
-            //     _this.props.loginFetch('/api/department/login', {
-            //         tel: values.userName,
-            //         password: values.password
-            //     });
-            // }
+            if (!err) {
+                _this.props.actions.login('/api/v1/login', {
+                    usr_id: values.userName,
+                    pwd: values.password
+                })
+            }
         });
+    }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.login.toJS().data.status == 200){
+            this.props.history.push('manage')
+        }
     }
     render() {
         const { getFieldDecorator } = this.props.form
@@ -67,4 +72,11 @@ class LoginContainer extends React.Component {
         )
     }
 }
-export default Form.create()(withRouter(LoginContainer))
+const mapStateToProps = state => {
+    let { login } = state;
+    return { login }
+}
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(withRouter(LoginContainer)));

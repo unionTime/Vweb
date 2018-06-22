@@ -1,7 +1,6 @@
 'use strict';
 let path = require('path');
 let defaultSettings = require('./defaults');
-
 // Additional npm or bower modules to include in builds
 // Add all foreign plugins you may need into this array
 // @example:
@@ -25,7 +24,14 @@ module.exports = {
     hot: true,
     port: defaultSettings.port,
     publicPath: defaultSettings.publicPath,
-    noInfo: false
+    noInfo: false,
+    proxy:{
+      '/api/*':{
+        target: 'http://120.79.173.228',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

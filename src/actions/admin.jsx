@@ -25,7 +25,7 @@ const login_error = (path) => {
     }
 }
 export const login = (path, data) => {
-    dispath.fetch_post(path, data, login_start, login_success, login_error)
+    return dispath.fetch_post(path, data, login_start, login_success, login_error)
 }
 /* *
  * 注册管理员账号
@@ -52,7 +52,7 @@ const register_error = (path) => {
     }
 }
 export const register = (path, data) => {
-    dispath.fetch_post(path, data, register_start, register_success, register_error)
+    return dispath.fetch_post(path, data, register_start, register_success, register_error)
 }
 /* *
  * 修改密码
@@ -79,5 +79,5 @@ const update_pwd_error = (path) => {
     }
 }
 export const update_pwd = (path, data) => {
-    dispath.fetch_put(path, data, update_pwd_start, update_pwd_success, update_pwd_error)
+    return dispath.fetch_put(path, data, update_pwd_start, update_pwd_success, update_pwd_error)
 }

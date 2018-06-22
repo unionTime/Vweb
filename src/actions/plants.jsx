@@ -27,7 +27,7 @@ const plants_error = (path) => {
     }
 }
 export const plants = (path) => {
-    dispath.fetch_get(path, plants_start, plants_success, plants_error)
+    return dispath.fetch_get(path, plants_start, plants_success, plants_error)
 }
 /* *
  * 查询单个plant
@@ -55,7 +55,7 @@ const plant_error = (path) => {
     }
 }
 export const plant = (path) => {
-    dispath.fetch_get(path, plant_start, plant_success, plant_error)
+    return dispath.fetch_get(path, plant_start, plant_success, plant_error)
 }
 /* *
  * 新增植物 -- 单个对象
@@ -83,7 +83,7 @@ const plant_create_error = (path) => {
     }
 }
 export const plant_create = (path,data) => {
-    dispath.fetch_post(path, data, plant_create_start, plant_create_success, plant_create_error)
+    return dispath.fetch_post(path, data, plant_create_start, plant_create_success, plant_create_error)
 }
 /* *
  * 新增植物 -- 文件上传
@@ -111,7 +111,7 @@ const plant_create_file_error = (path) => {
     }
 }
 export const plant_create_file = (path, data) => {
-    dispath.fetch_post(path, data, plant_create_file_start, plant_create_file_success, plant_create_file_error)
+    return dispath.fetch_post(path, data, plant_create_file_start, plant_create_file_success, plant_create_file_error)
 }
 /* *
  * 修改植物信息
@@ -139,7 +139,7 @@ const plant_update_error = (path) => {
     }
 }
 export const plant_update = (path, data) => {
-    dispath.fetch_put(path, data, plant_update_start, plant_update_success, plant_update_error)
+    return dispath.fetch_put(path, data, plant_update_start, plant_update_success, plant_update_error)
 }
 /* *
  * 删除植物
@@ -167,5 +167,5 @@ const plant_delete_error = (path) => {
     }
 }
 export const plant_delete = (path) => {
-    dispath.fetch_delete(path, plant_delete_start, plant_delete_success, plant_delete_error)
+    return dispath.fetch_delete(path, plant_delete_start, plant_delete_success, plant_delete_error)
 }

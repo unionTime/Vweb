@@ -2,13 +2,14 @@ import 'whatwg-fetch';
 import Verification from './verification.class'
 class Dispatch{
   constructor(){
-     this.url='#'
+      this.url ='http://120.79.173.228'
   }
   fetch_get(path, start, success, error){
       return dispatch => { dispatch(start(path));
           return fetch(this.url + path, { method: 'GET',headers: {
               'mode': 'cors',
              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
               'X-HZG-USER-ID': '',
               'X-HZG-ACCESS-TOKEN': ''}})
               .then(response => dispatch(Verification(response, success, error)))
@@ -21,8 +22,8 @@ class Dispatch{
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
-                  'X-HZG-USER-ID':'',
-                  'X-HZG-ACCESS-TOKEN':''
+                'X-HZG-USER-ID': '',
+                'X-HZG-ACCESS-TOKEN': ''
                 },body: JSON.stringify(data) })
               .then(response => dispatch(Verification(response, success, error)))
               .catch(e => dispatch(error(e)))
