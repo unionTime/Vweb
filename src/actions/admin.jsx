@@ -12,10 +12,11 @@ const login_start = (path) => {
        path
    }
 }
-const login_success = (path) => {
+const login_success = (path, json) => {
     return {
         type: LOGIN_SUCCESS,
-        path
+        path,
+        json
     }
 }
 const login_error = (path) => {
@@ -39,10 +40,11 @@ const register_start = (path) => {
         path
     }
 }
-const register_success = (path) => {
+const register_success = (path, json) => {
     return {
         type: REGISTER_SUCCESS,
-        path
+        path,
+        json
     }
 }
 const register_error = (path) => {
@@ -66,10 +68,11 @@ const update_pwd_start = (path) => {
         path
     }
 }
-const update_pwd_success = (path) => {
+const update_pwd_success = (path, json) => {
     return {
         type: UPDATE_PWD_SUCCESS,
-        path
+        path,
+        json
     }
 }
 const update_pwd_error = (path) => {

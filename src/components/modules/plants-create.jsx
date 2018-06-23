@@ -56,7 +56,7 @@ class PlantsCreate extends React.Component{
         e.preventDefault();
         let _this =this
         this.props.form.validateFields((err,values) => {
-            _this.props.actions.plant_create('',{
+            _this.props.actions.plant_create('/api/v1/manage/plant/',{
                 plant_sname: values.plant_sname,
                 plant_alias: values.plant_alias,
                 plant_lname: values.plant_lname,
@@ -130,10 +130,10 @@ class PlantsCreate extends React.Component{
     }
 }
 const mapStateToProps = state => {
-    let { login } = state;
-    return { login }
+    let { plant_create } = state;
+    return { plant_create }
 }
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch)
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(PlantsCreate));
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(PlantsCreate))

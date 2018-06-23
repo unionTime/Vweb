@@ -1,8 +1,9 @@
 import 'whatwg-fetch';
 import Verification from './verification.class'
+const verification = new Verification()
 class Dispatch{
   constructor(){
-      this.url ='http://120.79.173.228'
+      this.url =''
   }
   fetch_get(path, start, success, error){
       return dispatch => { dispatch(start(path));
@@ -10,23 +11,24 @@ class Dispatch{
               'mode': 'cors',
              'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*',
-              'X-HZG-USER-ID': '',
-              'X-HZG-ACCESS-TOKEN': ''}})
-              .then(response => dispatch(Verification(response, success, error)))
-              .catch(e => dispatch(error(e)))
+              'X-HZG-USER-ID': window.XHZGUSERID,
+              'Authorization': 'HZG ' + window.Authorization}})
+              .then(response => verification.resStatus(response, res => dispatch(success(path, res)), e => dispatch(error(e))))
+              .catch(e => dispatch(error(path)))
       }
   }
   fetch_post(path, data, start, success, error){
+      
       return dispatch => {dispatch(start(path));
             return fetch(this.url + path, { method: 'POST',headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': '*',
-                'X-HZG-USER-ID': '',
-                'X-HZG-ACCESS-TOKEN': ''
+                 'Access-Control-Allow-Origin': '*',
+                'X-HZG-USER-ID': window.XHZGUSERID,
+                'Authorization': 'HZG '+ window.Authorization
                 },body: JSON.stringify(data) })
-              .then(response => dispatch(Verification(response, success, error)))
-              .catch(e => dispatch(error(e)))
+                .then(response => verification.resStatus(response, res => dispatch(success(null, res)), e => dispatch(error(e))))
+                .catch(e => dispatch(error(path)))
       }
   }
     fetch_put(path, data, start, success, error){
@@ -38,11 +40,11 @@ class Dispatch{
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
                   'X-HZG-USER-ID': '',
-                  'X-HZG-ACCESS-TOKEN': ''
+                  'Authorization': ''
               }, body: JSON.stringify(data)
           })
-              .then(response => dispatch(Verification(response, success, error)))
-              .catch(e => dispatch(error(e)))
+              .then(response => verification.resStatus(response, res => dispatch(success(null, res)), e => dispatch(error(e))))
+              .catch(e => dispatch(error(path)))
       }
   }
   fetch_delete(path, start, success, error){
@@ -54,11 +56,11 @@ class Dispatch{
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
                   'X-HZG-USER-ID': '',
-                  'X-HZG-ACCESS-TOKEN': ''
+                  'Authorization': ''
               }
           })
-              .then(response => dispatch(Verification(response, success, error)))
-              .catch(e => dispatch(error(e)))
+              .then(response => verification.resStatus(response, res => dispatch(success(null, res)), e => dispatch(error(e))))
+              .catch(e => dispatch(error(path)))
       }
   }
 }

@@ -26,7 +26,11 @@ class LoginContainer extends React.Component {
         });
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.login.toJS().data.status == 200){
+        if (nextProps.login.toJS().success){
+            let { access_token, qiniu_token, usr_id } = nextProps.login.toJS().data
+            window.XHZGUSERID = usr_id
+            window.Authorization = access_token
+            window.qiniu_token = qiniu_token
             this.props.history.push('manage')
         }
     }
