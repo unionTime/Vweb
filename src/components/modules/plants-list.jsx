@@ -10,29 +10,60 @@ class PlantsList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            loading: false,
+            loading: true,
             previewImages: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
             previewImagesActive:false,
-            data: []
+            data: [],
+            page:1,
+            num:50,
+            len:0,
+            del_record:{}
         }
     }
     componentDidMount(){
-        this.props.actions.plants('/api/v1/manage?page=1&num=20')
+        this.plants('/api/v1/manage?page=1&num=50')
     }
     componentWillReceiveProps(nextProps){
+        if (nextProps.plants == this.props.plants){
+            return
+        }
         if (nextProps.plants.toJS().success){
+            let data = [...this.state.data, ...nextProps.plants.toJS().data.plant_records]
             this.setState({
-                data: nextProps.plants.toJS().data.plant_records
+                data: data,
+                loading:false,
+                page: this.state.page + 1
+            })
+        }
+        if (nextProps.plants.toJS().isFail){
+            this.setState({
+                loading: false
             })
         }
     }
-    preview = () => {
+    preview = (imgs) => {
       this.setState({
-          previewImagesActive:true
+          previewImagesActive:true,
+          previewImages: imgs
       })
     }
     /* 删除 */
-    confirm = () => {
+    confirm = (record) => {
+        this.setState({
+            del_record: record
+        })
+        this.props.actions.plant_delete('/api/v1/manage/plant/', {plant_ids: [record.plant_id]})
+    }
+    updateList = (record) => {
+        let data = this.state.data;
+        for (let i = 0; i < data.length; i++) {
+            if (record.plant_id == data[i].plant_id) {
+                data.splice(i, 1);
+                this.setState({
+                    data: data
+                })
+            }
+        }
     }
     cancel = () => {
         message.error('取消');
@@ -58,15 +89,18 @@ class PlantsList extends React.Component {
             </Row>
         )
     }
+    paginationChange = (agination) => {
+        let { current, pageSize } = agination;
+        //如果为最后一页就加载
+        if (current * pageSize == (this.state.page - 1) * 50) {
+            this.plants('/api/v1/manage?num=50&page=' + this.state.page);
+        }
+    }
+    plants = (url) => {
+        this.props.actions.plants(url)
+    }
     render() {
-        console.log(this.state.data)
         const columns = [
-            {
-                title: '植物编号',
-                dataIndex: 'plant_id',
-                key: 'plant_id',
-                width: '10%'
-            },
             {
                 title: '标准名称',
                 dataIndex: 'plant_sname',
@@ -95,7 +129,7 @@ class PlantsList extends React.Component {
                 title: '分布区域',
                 dataIndex: 'plant_distribution_area',
                 key: 'plant_distribution_area',
-                width: '15%'
+                width: '25%'
             },
             {
                 title: '药性特征',
@@ -117,8 +151,8 @@ class PlantsList extends React.Component {
                 dataIndex: 'update',
                 key: 'update',
                 width: '5%',
-                render: () => {
-                    return (<a href="#">更新</a>)
+                render: (plant_id, record) => {
+                    return (<a href="#" onClick={() => this.props.actions.plant('/api/v1/manage/plant/'+record.plant_id+'?operation=1')} >更新</a>)
                 }
             },
             {
@@ -136,7 +170,7 @@ class PlantsList extends React.Component {
         return (<Container
             headerLeft={<span><Icon type="appstore-o" /> 植物列表</span>}
             headerRight={null} >
-            <Table loading={this.state.loading} style={{ backgroundColor: '#fff' }} dataSource={this.state.data} expandedRowRender={record => this.expandedRowRender(record)} columns={columns}
+            <Table onChange={this.paginationChange} loading={this.state.loading} rowKey={(record) => record.plant_id} style={{ backgroundColor: '#fff' }} dataSource={this.state.data} expandedRowRender={record => this.expandedRowRender(record)} columns={columns}
                 pagination={10}
             />
             <ImagesPreview images={this.state.previewImages} active={this.state.previewImagesActive} />

@@ -53,7 +53,7 @@ class ImagesPreview extends React.Component{
                 <Icon type="left" onClick={this.left} className='icon' />
                 <div className='image-container'>
                     <Icon type="close" onClick={this.close} className='image-close _icon' />
-                    <img className='image' src={this.props.images[this.state.index]} />
+                    <img className='image' src={this.props.images[this.state.index].img_path} />
                 </div>
                 <Icon type="right" onClick={this.right} className='icon' />
                 <Icon type="download" onClick={this.download} className='image-download _icon'/>

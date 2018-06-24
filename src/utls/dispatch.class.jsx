@@ -39,15 +39,15 @@ class Dispatch{
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
-                  'X-HZG-USER-ID': '',
-                  'Authorization': ''
+                  'X-HZG-USER-ID': window.XHZGUSERID,
+                  'Authorization': 'HZG ' + window.Authorization
               }, body: JSON.stringify(data)
           })
               .then(response => verification.resStatus(response, res => dispatch(success(null, res)), e => dispatch(error(e))))
               .catch(e => dispatch(error(path)))
       }
   }
-  fetch_delete(path, start, success, error){
+  fetch_delete(path,data, start, success, error){
       return dispatch => {
           dispatch(start(path));
           return fetch(this.url + path, {
@@ -55,9 +55,9 @@ class Dispatch{
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
-                  'X-HZG-USER-ID': '',
-                  'Authorization': ''
-              }
+                  'X-HZG-USER-ID': window.XHZGUSERID,
+                  'Authorization': 'HZG ' + window.Authorization
+              }, body: JSON.stringify(data)
           })
               .then(response => verification.resStatus(response, res => dispatch(success(null, res)), e => dispatch(error(e))))
               .catch(e => dispatch(error(path)))

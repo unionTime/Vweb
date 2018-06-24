@@ -4,12 +4,7 @@ class PicturesWall extends React.Component {
     state = {
         previewVisible: false,
         previewImage: '',
-        fileList: [{
-            uid: -1,
-            name: 'xxx.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-        }]
+        fileList: []
     };
 
     handleCancel = () => this.setState({ previewVisible: false })
@@ -32,16 +27,22 @@ class PicturesWall extends React.Component {
                 <Icon type="plus" />
                 <div className="ant-upload-text">选择图片</div>
             </div>
-        );
+        )
         return (
             <div className="clearfix">
                 <Upload
-                    action="//jsonplaceholder.typicode.com/posts/"
+                    action="http://upload-z2.qiniup.com"
                     listType="picture-card"
                     fileList={fileList}
+                    data={(file) => {
+                        let obj = {
+                            token: window.qiniu_token,
+                            key: file.name
+                        }
+                        return obj
+                    }}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}
-                    beforeUpload={() => false}
                 >
                     {fileList.length >= 3 ? null : uploadButton}
                 </Upload>

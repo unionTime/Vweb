@@ -166,6 +166,6 @@ const plant_delete_error = (path) => {
         path
     }
 }
-export const plant_delete = (path) => {
-    return dispath.fetch_delete(path, plant_delete_start, plant_delete_success, plant_delete_error)
+export const plant_delete = (path, data) => {
+    return dispath.fetch_delete(path, data, plant_delete_start, plant_delete_success, plant_delete_error)
 }

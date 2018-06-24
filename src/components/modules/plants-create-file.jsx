@@ -3,30 +3,13 @@ import Container from './module-container'
 import { Icon, Form, Row, Col, Input, Upload, Button } from 'antd';
 const FormItem = Form.Item;
 const props = {
-    action: '//jsonplaceholder.typicode.com/posts/',
+    action: 'http://upload-z2.qiniup.com',
     onChange({ file, fileList }) {
         if (file.status !== 'uploading') {
             console.log(file, fileList);
         }
     },
-    defaultFileList: [{
-        uid: 1,
-        name: 'xxx.png',
-        status: 'done',
-        reponse: 'Server Error 500', // custom error message to show
-        url: 'http://www.baidu.com/xxx.png'
-    }, {
-        uid: 2,
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png'
-    }, {
-        uid: 3,
-        name: 'zzz.png',
-        status: 'error',
-        reponse: 'Server Error 500', // custom error message to show
-        url: 'http://www.baidu.com/zzz.png'
-    }]
+    defaultFileList: []
 };
 
 const formItemLayout1 = {
@@ -65,7 +48,9 @@ class PlantsCreateFile extends React.Component{
                                     valuePropName: 'fileList',
                                     getValueFromEvent: this.normFile
                                 })(
-                                    <Upload.Dragger name="files" action="/upload.do">
+                                    <Upload.Dragger name="files" action="/api/v1/manage/batch" headers={{
+                                        'X-HZG-USER-ID': window.XHZGUSERID,
+                                        'Authorization': 'HZG ' + window.Authorization}}>
                                         <p className="ant-upload-drag-icon">
                                             <Icon type="inbox" />
                                         </p>
@@ -81,7 +66,15 @@ class PlantsCreateFile extends React.Component{
                             {...formItemLayout1}
                             label='图片'
                         >
-                            <Upload {...props}>
+                            <Upload {...props}
+                                data={(file) => {
+                                    let obj = {
+                                        token: window.qiniu_token,
+                                        key: file.name
+                                    }
+                                    return obj
+                                }}
+                                >
                                 <Button>
                                     <Icon type="upload" /> 图片
     </Button>

@@ -43,7 +43,28 @@ class PlantsCreate extends React.Component{
         this.state={
             update:false,
             type:'create',
-            imgs:[]
+            imgs:[],
+            label:[],
+            data:{
+                plant_sname: '',
+                plant_alias: '',
+                plant_lname: '',
+                plant_family: '',
+                plant_genus: '',
+                plant_area: '',
+                plant_soil: '',
+                plant_humidity: '',
+                plant_orientation: '',
+                plant_climate: '',
+                plant_longitude: '',
+                plant_latitude: '',
+                plant_distribution_area: '',
+                plant_drug_feature: '',
+                plant_engler: '',
+                plant_linna: '',
+                imgs: [],
+                labels: []
+            }
         }
     }
     normFile = (e) => {
@@ -52,11 +73,22 @@ class PlantsCreate extends React.Component{
         }
         return e && e.fileList;
     }
+    componentWillReceiveProps(nextProps){
+        if (nextProps.plant == this.props.plant){
+            return
+        }
+        if (nextProps.plant.toJS().success){
+            this.setState({
+                type:'update',
+                data: nextProps.plant.toJS().data
+            })
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         let _this =this
         this.props.form.validateFields((err,values) => {
-            _this.props.actions.plant_create('/api/v1/manage/plant/',{
+            let obj ={
                 plant_sname: values.plant_sname,
                 plant_alias: values.plant_alias,
                 plant_lname: values.plant_lname,
@@ -73,8 +105,15 @@ class PlantsCreate extends React.Component{
                 plant_drug_feature: values.plant_drug_feature,
                 plant_engler: values.plant_engler,
                 plant_linna: values.plant_linna,
-                imgs:_this.state.imgs
-            })
+                imgs: _this.state.imgs,
+                labels:_this.state.label
+            }
+            if (_this.state.type == 'create'){
+                _this.props.actions.plant_create('/api/v1/manage/plant', obj)
+            }
+            if (_this.state.type == 'update'){
+                _this.props.actions.plant_update('/api/v1/manage/plant',obj)
+            }
         })
     }
     inputItemRender = (arr) => {
@@ -91,10 +130,8 @@ class PlantsCreate extends React.Component{
         </FormItem>))
     }
     upload = (e) => {
-        console.log(e)
     }
     onChange = (file, fileList) => {
-        console.log(fileList)
         return false
     }
     render(){
@@ -130,8 +167,8 @@ class PlantsCreate extends React.Component{
     }
 }
 const mapStateToProps = state => {
-    let { plant_create } = state;
-    return { plant_create }
+    let { plant_create, plant} = state;
+    return { plant_create, plant}
 }
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch)

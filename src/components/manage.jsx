@@ -9,8 +9,8 @@ class Manage extends React.Component{
     }
     render(){
         return (<Center menuKey='1'>
-            <PlantsCreate />
-            <PlantsCreateFile />
+            <PlantsCreate  />
+            <PlantsCreateFile  />
             <PlantsList />
         </Center>)
     }
