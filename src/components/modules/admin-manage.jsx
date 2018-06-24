@@ -1,6 +1,10 @@
 import React from 'react'
 import Container from './module-container'
 import { Icon, Row, Col, Input, Form, Button} from 'antd';
+require('../../styles/admin-manage.css')
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../actions/admin'
 const FormItem = Form.Item;
 const formItemLayout = {
     labelCol: { span: 6 },
@@ -17,13 +21,35 @@ class AdminManage extends React.Component{
           update:false
       }
   }
+    create = (e) => {
+        e.preventDefault();
+        let _this = this
+        this.props.form.validateFields((err, values) => {
+            _this.props.actions.register('/api/v1/register',{
+                usr_id: 'Hello, world!',
+                usr_name: 'Hello, world!',
+                pwd: 'Hello, world!'
+            })
+        })
+    }
+    update = (e) => {
+        e.preventDefault()
+        let _this = this
+        this.props.form.validateFields((err, values) => {
+            _this.props.actions.update_pwd('/api/v1/password',{
+                old_pwd: 'Hello, world!',
+                pwd: 'Hello, world!'
+            })
+        })
+    }
   render(){
       const { getFieldDecorator } = this.props.form;
       return (<Container headerLeft={<span><Icon type="plus" /> 管理员管理</span>}
           headerRight={null} >
-          <div className='admin-update'>
-              <div className='title-item'><Icon type="file-jpg" />更新密码</div>
-            <Form >
+          <div className='admin'>
+              <div className='admin-update' >
+              <div className='title-item'><Icon type="sync" /> 更新密码</div>
+                  <Form onSubmit={this.update} >
                 <Row>
                       <Col span={6}>
                           <FormItem label="密码"
@@ -70,8 +96,8 @@ class AdminManage extends React.Component{
             </Form>
           </div>
           <div className='admin-create'>
-              <div className='title-item'><Icon type="file-jpg" />新增管理员</div>
-              <Form >
+                  <div className='title-item'><Icon type="user-add" /> 新增管理员</div>
+                  <Form onSubmit={this.create} >
                   <Row>
                       <Col span={6}>
                           <FormItem label="账号"
@@ -117,7 +143,15 @@ class AdminManage extends React.Component{
                   </Row>
               </Form>
           </div>
+          </div>
       </Container>)
   }
 }
-export default Form.create({})(AdminManage)
+const mapStateToProps = state => {
+    let { plant_create, plant } = state;
+    return { plant_create, plant }
+}
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create({})(AdminManage))

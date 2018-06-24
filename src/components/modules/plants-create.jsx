@@ -45,6 +45,7 @@ class PlantsCreate extends React.Component{
             type:'create',
             imgs:[],
             label:[],
+            stutas:true,
             data:{
                 plant_sname: '',
                 plant_alias: '',
@@ -82,6 +83,8 @@ class PlantsCreate extends React.Component{
                 type:'update',
                 data: nextProps.plant.toJS().data
             })
+            let { setFieldsValue } = this.props.form
+            setFieldsValue(this.state.data)
         }
     }
     handleSubmit = (e) => {
@@ -117,7 +120,7 @@ class PlantsCreate extends React.Component{
         })
     }
     inputItemRender = (arr) => {
-        const { getFieldDecorator } = this.props.form;
+        let { getFieldDecorator } = this.props.form
         return arr.map((item,index) => (<FormItem key={index} label={item.label}
             {...formItemLayout} >
             {getFieldDecorator(item.name, {
