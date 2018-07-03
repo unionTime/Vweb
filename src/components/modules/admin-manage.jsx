@@ -26,9 +26,8 @@ class AdminManage extends React.Component{
         let _this = this
         this.props.form.validateFields((err, values) => {
             _this.props.actions.register('/api/v1/register',{
-                usr_id: 'Hello, world!',
-                usr_name: 'Hello, world!',
-                pwd: 'Hello, world!'
+                usr_id: values.usr_id,
+                pwd: values.pwd2
             })
         })
     }
@@ -37,8 +36,8 @@ class AdminManage extends React.Component{
         let _this = this
         this.props.form.validateFields((err, values) => {
             _this.props.actions.update_pwd('/api/v1/password',{
-                old_pwd: 'Hello, world!',
-                pwd: 'Hello, world!'
+                old_pwd: values.old_pwd,
+                pwd: values.pwd1
             })
         })
     }
@@ -78,7 +77,7 @@ class AdminManage extends React.Component{
                       <Col span={6}>
                           <FormItem label="新密码"
                               {...formItemLayout} >
-                              {getFieldDecorator('pwd', {
+                              {getFieldDecorator('pwd1', {
                                   rules: [
                                       { required: this.state.update, message: '请输入新密码' }
                                   ]
@@ -102,7 +101,7 @@ class AdminManage extends React.Component{
                       <Col span={6}>
                           <FormItem label="账号"
                               {...formItemLayout} >
-                              {getFieldDecorator('usr_name', {
+                              {getFieldDecorator('usr_id', {
                                   rules: [
                                       { required: this.state.update, message: '请输入管理员账号' }
                                   ]
@@ -114,7 +113,7 @@ class AdminManage extends React.Component{
                       <Col span={6}>
                           <FormItem label="密码"
                               {...formItemLayout} >
-                              {getFieldDecorator('pwd', {
+                              {getFieldDecorator('pwd2', {
                                   rules: [
                                       { required: this.state.update, message: '请输入密码' }
                                   ]

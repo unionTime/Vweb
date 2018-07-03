@@ -48,7 +48,7 @@ class PlantsCreateFile extends React.Component{
                                     valuePropName: 'fileList',
                                     getValueFromEvent: this.normFile
                                 })(
-                                    <Upload.Dragger name="files" action="/api/v1/manage/batch" headers={{
+                                    <Upload.Dragger name="file" accept="file" action="/api/v1/manage/batch" headers={{
                                         'X-HZG-USER-ID': window.XHZGUSERID,
                                         'Authorization': 'HZG ' + window.Authorization}}>
                                         <p className="ant-upload-drag-icon">

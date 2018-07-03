@@ -6,20 +6,17 @@ class PicturesWall extends React.Component {
         previewImage: '',
         fileList: []
     };
-
     handleCancel = () => this.setState({ previewVisible: false })
-
     handlePreview = (file) => {
         this.setState({
             previewImage: file.url || file.thumbUrl,
             previewVisible: true
-        });
+        })
     }
-
     handleChange = ({fileList}) => {
         console.log(fileList)
-        this.setState({ fileList })}
-
+        this.setState({ fileList })
+    }
     render() {
         const { previewVisible, previewImage, fileList } = this.state;
         const uploadButton = (

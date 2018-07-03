@@ -40,6 +40,9 @@ class PlantsList extends React.Component {
                 loading: false
             })
         }
+        if (nextProps.plant_delete != this.props.plant_delete&&nextProps.plant_delete.toJS().success){
+            
+        }
     }
     preview = (imgs) => {
       this.setState({
@@ -52,7 +55,8 @@ class PlantsList extends React.Component {
         this.setState({
             del_record: record
         })
-        this.props.actions.plant_delete('/api/v1/manage/plant/', {plant_ids: [record.plant_id]})
+        this.props.actions.plant_delete('/api/v1/manage/plant', {plant_ids: [record.plant_id]})
+        this.updateList(record)
     }
     updateList = (record) => {
         let data = this.state.data;
@@ -161,7 +165,7 @@ class PlantsList extends React.Component {
                 key: 'delete',
                 width: '5%',
                 render: (text, record) => {
-                    return (<Popconfirm title="你确定要删除该用户吗？" onConfirm={() => this.confirm(record)} onCancel={this.cancel} okText="是" cancelText="否">
+                    return (<Popconfirm title="你确定要删除该植物吗？" onConfirm={() => this.confirm(record)} onCancel={this.cancel} okText="是" cancelText="否">
                         <a href="#">删除</a>
                     </Popconfirm>)
                 }
@@ -178,8 +182,8 @@ class PlantsList extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    let { plants } = state
-    return { plants }
+    let { plants ,plant_delete} = state
+    return { plants ,plant_delete}
 }
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch)
