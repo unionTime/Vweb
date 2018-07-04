@@ -117,7 +117,9 @@ class PlantsCreate extends React.Component{
                     uid: imgs[i].img_id,
                     name: imgs[i].img_name,
                     status: 'done',
-                    url: imgs[i].img_path
+                    url: imgs[i].img_path,
+                    img_type: imgs[i].img_type,
+                    img_text: imgs[i].img_text
                 })
             }
             this.setState({
@@ -149,12 +151,16 @@ class PlantsCreate extends React.Component{
                 if (this.state.fileList[i].url){
                     imgs.push({
                         img_path: this.state.fileList[i].url,
-                        img_name: this.state.fileList[i].name
+                        img_name: this.state.fileList[i].name,
+                        img_type: this.state.fileList[i].img_type,
+                        img_text: this.state.fileList[i].img_text
                     })
                 }else{
                     imgs.push({
                         img_path: this.state.fileList[i].name,
-                        img_name:'None'
+                        img_name:'None',
+                        img_type: 'None',
+                        img_text: 'None'
                     })
                 }
             }
